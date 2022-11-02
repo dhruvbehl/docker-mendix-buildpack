@@ -27,6 +27,12 @@ ARG BUILDPACK_XTRACE
 # Set the user ID
 ARG USER_UID=1001
 
+RUN if [ -d build ]; then rm -rf build; fi
+RUN if [ -d downloads ]; then rm -rf downloads; fi
+RUN mkdir -p downloads build
+RUN wget https://s3-eu-west-1.amazonaws.com/mx-buildpack-ci/BuildpackTestApp-mx9-18.mda -O downloads/application.mpk
+RUN unzip downloads/application.mpk -d build/
+
 # Each comment corresponds to the script line:
 # 1. Create all directories needed by scripts
 # 2. Download CF buildpack
