@@ -27,11 +27,12 @@ ARG BUILDPACK_XTRACE
 # Set the user ID
 ARG USER_UID=1001
 
-ARG MDA_PATH=https://s3-eu-west-1.amazonaws.com/mx-buildpack-ci/BuildpackTestApp-mx9-18.mda
+ARG MDA_PATH=https://s3-eu-west-1.amazonaws.com/mx-buildpack-ci/BuildpackTestApp-mx-7-16.mda
 
 RUN if [ -d /kaniko/buildcontext/build ]; then rm -rf build; fi
 RUN if [ -d /kaniko/buildcontext/downloads ]; then rm -rf downloads; fi
 RUN mkdir -p /kaniko/buildcontext/downloads /kaniko/buildcontext/build
+RUN echo "Getting mda file from $MDA_PATH"
 RUN wget $MDA_PATH -O /kaniko/buildcontext/downloads/application.mpk
 RUN unzip /kaniko/buildcontext/downloads/application.mpk -d /kaniko/buildcontext/build/
 RUN pwd
