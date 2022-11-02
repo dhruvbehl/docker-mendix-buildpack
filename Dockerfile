@@ -27,11 +27,11 @@ ARG BUILDPACK_XTRACE
 # Set the user ID
 ARG USER_UID=1001
 
-RUN if [ -d build ]; then rm -rf build; fi
-RUN if [ -d downloads ]; then rm -rf downloads; fi
-RUN mkdir -p downloads build
-RUN wget https://s3-eu-west-1.amazonaws.com/mx-buildpack-ci/BuildpackTestApp-mx9-18.mda -O downloads/application.mpk
-RUN unzip downloads/application.mpk -d build/
+RUN if [ -d /kaniko/buildcontext/build ]; then rm -rf build; fi
+RUN if [ -d /kaniko/buildcontext/downloads ]; then rm -rf downloads; fi
+RUN mkdir -p /kaniko/buildcontext/downloads /kaniko/buildcontext/build
+RUN wget https://s3-eu-west-1.amazonaws.com/mx-buildpack-ci/BuildpackTestApp-mx9-18.mda -O /kaniko/buildcontext/downloads/application.mpk
+RUN unzip /kaniko/buildcontext/downloads/application.mpk -d /kaniko/buildcontext/build/
 RUN pwd
 RUN ls
 
